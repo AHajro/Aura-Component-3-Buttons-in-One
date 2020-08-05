@@ -1,0 +1,35 @@
+<aura:component controller="Utils" implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId" access="global" >
+        
+    		 <aura:attribute name="record" type="Object" />
+    		 <aura:attribute name="simpleRecord" type="Object" />
+    		 <aura:attribute name="recordError" type="String" />
+        
+    <force:recordData aura:id="currentRecord"
+                      recordId="{!v.recordId}"
+                      targetRecord="{!v.record}"
+                      targetFields="{!v.simpleRecord}"
+                      targetError="{!v.error}"
+                      layoutType="FULL"
+                      fields="Verifica_fondo__c, Esito_congelamento__c, Tipo_di_Garanzia__c, Esito_simulazione__c"
+                      recordUpdated="{!c.doInit}"                      
+
+                       />
+
+
+    	<lightning:button class="{!if(v.simpleRecord.Verifica_fondo__c == 'Non Necessaria','slds-hide','slds-float_left')}"
+                          variant="success" name="Verifica" label="Verifica Fondo"
+                          disabled="{!!or(v.simpleRecord.Verifica_fondo__c=='Da Verificare' , v.simpleRecord.Verifica_fondo__c=='Esito Negativo')}"
+                          onclick="{!c.update}"/>
+
+        <lightning:button class="{!if(v.simpleRecord.Esito_simulazione__c == 'Non Necessaria','slds-hide','slds-float_left')}"
+                          variant="success" name="Simulazione" label="Simulazione Fondo"
+                          disabled="{!v.simpleRecord.Esito_simulazione__c=='In simulazione'}"
+                          onclick="{!c.update}" />
+        
+        <lightning:button class="{!if(v.simpleRecord.Esito_congelamento__c == 'Non Necessaria','slds-hide','slds-float_left')}"
+                          variant="success" name="Congelamento" label="Congelamento Fondo"
+                          disabled="{!v.simpleRecord.Esito_congelamento__c=='In congelamento'}"
+                          onclick="{!c.update}" />   
+
+
+</aura:component>
