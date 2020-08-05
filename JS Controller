@@ -1,0 +1,26 @@
+({   
+    doInit: function (component, event, helper) {
+        var QuoteId =  component.get("v.recordId");
+        console.log('QuoteId: '+ QuoteId);
+        
+        var verifica = component.get("v.simpleRecord.Verifica_fondo__c");
+        console.log('V ' + verifica);
+        
+        var simulazione = component.get("v.simpleRecord.Esito_simulazione__c");
+        console.log('s ' + simulazione);
+        
+        var congelamento = component.get("v.simpleRecord.Esito_congelamento__c");
+        console.log('c ' + congelamento);
+        
+        var tipo = component.get("v.simpleRecord.Tipo_di_Garanzia__c");
+        console.log('t ' + tipo);
+    },
+    
+	update : function(component, event, helper) {
+        
+        var buttonName = event.getSource().get("v.name");
+        console.log('Button Name ' + buttonName);
+        
+		helper.update_helper(component, event, helper, buttonName);
+	}
+})
