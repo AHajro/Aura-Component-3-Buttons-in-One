@@ -1,0 +1,26 @@
+ @AuraEnabled
+	public static void updateButtonFondo(String quoteId, String ButtonName){
+        System.debug('Utils.updateButtonFondo - Start');
+
+        list<Garanzia__c> Pl_list = new list<Garanzia__c>();
+        pl_list = [select id,Verifica_fondo__c,RecordTypeId,Esito_simulazione__c,Esito_congelamento__c from Garanzia__c where Id =:quoteId];
+        System.debug('pl_list'+pl_list);
+        Garanzia__c p =new Garanzia__c();
+        p.id=pl_list[0].id;
+        
+        if (ButtonName=='Verifica'){
+		p.Verifica_fondo__c='In Verifica'; 
+        p.Esito_simulazione__c ='Da Simulare';
+        p.Esito_congelamento__c	='Da Congelare';
+        }
+        else if  (ButtonName=='Simulazione'){
+                    p.Esito_simulazione__c ='In simulazione';
+
+        }
+        else if (ButtonName=='Congelamento'){
+                    p.Esito_congelamento__c	='In congelamento';
+
+        }
+        update p;
+        System.debug('Utils.updateButtonFondo - End   p: '+p);
+    }
